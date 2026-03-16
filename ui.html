@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #181820;
+      --surface:   #222229;
+      --raised:    #2C2C35;
+      --border:    #38383F;
+      --outline:   #777777;
+      --text:      #A3A8C9;
+      --text-dim:  #6B74B0;
+      --btn:       #343434;
+      --btn-hover: #3E3E3E;
+      /* antagonists */
+      --warm:      #D4865A;   /* inside — amber-orange */
+      --warm-bg:   #2E1E14;
+      --cool:      #52B8A8;   /* outside — teal */
+      --cool-bg:   #12272A;
+    }
+
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 12px;
+      color: var(--text);
+      background: var(--bg);
+      padding: 16px;
+      line-height: 1.4;
+    }
+
+    /* ── Header ── */
+    .header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .header-icon {
+      width: 30px; height: 30px;
+      background: var(--raised);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .header-icon svg { width: 14px; height: 14px; }
+    .header h1 { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+    .header p  { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 9px; font-weight: 700;
+      color: var(--text-dim);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 7px;
+    }
+
+    /* ── Node list ── */
+    .node-list {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      overflow: hidden;
+      max-height: 180px; overflow-y: auto;
+      margin-bottom: 10px;
+    }
+    .node-list::-webkit-scrollbar { width: 3px; }
+    .node-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .node-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border);
+      gap: 8px;
+    }
+    .node-item:last-child { border-bottom: none; }
+    .node-item.is-center { opacity: 0.35; }
+
+    .node-info { display: flex; align-items: center; gap: 7px; min-width: 0; }
+    .dot { width: 5px; height: 5px; border-radius: 1.5px; flex-shrink: 0; }
+    .node-name {
+      font-size: 11px; font-weight: 500; color: var(--text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px;
+    }
+    .node-meta { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+    .weight { font-size: 9px; color: var(--text-dim); font-variant-numeric: tabular-nums; }
+
+    .badge {
+      font-size: 8px; font-weight: 800;
+      padding: 2px 6px; border-radius: 3px;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      border: 1px solid;
+    }
+    .badge-inside  { background: var(--warm-bg); color: var(--warm);  border-color: var(--warm); }
+    .badge-outside { background: var(--cool-bg); color: var(--cool);  border-color: var(--cool); }
+    .badge-center  { background: transparent;    color: var(--text-dim); border-color: var(--border); }
+
+    .empty-state {
+      padding: 26px 12px; text-align: center;
+      color: var(--text-dim); font-size: 11px;
+    }
+    .empty-state svg { display: block; margin: 0 auto 7px; opacity: 0.4; }
+
+    /* ── Pills ── */
+    .pills { display: flex; gap: 6px; margin-bottom: 12px; }
+    .pill {
+      flex: 1; background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px; padding: 8px 8px 7px; text-align: center;
+    }
+    .pill-num   { font-size: 18px; font-weight: 800; line-height: 1; margin-bottom: 3px; }
+    .pill-label { font-size: 8px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; }
+    .pill-i .pill-num  { color: var(--warm); }
+    .pill-o .pill-num  { color: var(--cool); }
+    .pill-ok .pill-num { color: var(--border); }
+
+    /* ── Buttons ── */
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      width: 100%; padding: 10px 14px;
+      border: 1px solid var(--outline);
+      border-radius: 8px;
+      font-size: 12px; font-weight: 600;
+      cursor: pointer;
+      transition: background 0.12s, border-color 0.12s, transform 0.08s;
+      margin-bottom: 6px; font-family: inherit;
+    }
+    .btn svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    .btn-primary {
+      background: var(--btn);
+      color: var(--text);
+      border-color: var(--outline);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--btn-hover);
+      border-color: var(--text-dim);
+    }
+    .btn-primary:active:not(:disabled) { transform: scale(0.99); }
+    .btn-primary:disabled {
+      background: var(--surface);
+      color: var(--border);
+      border-color: var(--border);
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-dim);
+      border-color: var(--border);
+      font-size: 11px; padding: 7px 12px;
+    }
+    .btn-secondary:hover { background: var(--surface); border-color: var(--outline); color: var(--text); }
+
+    /* ── Feedback ── */
+    #feedback {
+      display: none; padding: 9px 11px; border-radius: 7px;
+      font-size: 11px; line-height: 1.5; margin-top: 8px; white-space: pre-line;
+    }
+    #feedback.success { display: block; background: #0F2A1A; color: #5CC48C; border: 1px solid #1E4A2E; }
+    #feedback.error   { display: block; background: #2A0F0F; color: #C46060; border: 1px solid #4A1E1E; }
+    #feedback.warning { display: block; background: #2A1E08; color: var(--warm); border: 1px solid #3A2A10; }
+
+    /* ── Divider ── */
+    .divider { height: 1px; background: var(--border); margin: 14px 0; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-icon">
+      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="12" height="12" rx="1.5" stroke="#6B74B0" stroke-width="1.5"/>
+        <rect x="4" y="4" width="6" height="6" rx="0.75" stroke="#A3A8C9" stroke-width="1.2"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Stroke Center</h1>
+      <p>Convert inside/outside strokes to centered, duplicated in place</p>
+    </div>
+  </div>
+
+  <div class="divider" style="margin-top:0"></div>
+
+  <div class="section-label">Detected Strokes</div>
+  <div class="node-list" id="nodeList">
+    <div class="empty-state">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
+      </svg>
+      Select layers to scan
+    </div>
+  </div>
+
+  <div class="pills" id="pills" style="display:none">
+    <div class="pill pill-i"><div class="pill-num" id="cntInside">0</div><div class="pill-label">Inside</div></div>
+    <div class="pill pill-o"><div class="pill-num" id="cntOutside">0</div><div class="pill-label">Outside</div></div>
+    <div class="pill pill-ok"><div class="pill-num" id="cntCenter">0</div><div class="pill-label">Center</div></div>
+  </div>
+
+  <button class="btn btn-primary" id="dupBtn" disabled>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="8" y="8" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+    </svg>
+    Duplicate &amp; Convert Strokes
+  </button>
+  <button class="btn btn-secondary" id="rescanBtn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px">
+      <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/>
+    </svg>
+    Rescan
+  </button>
+
+  <div id="feedback"></div>
+
+  <script>
+    function send(msg) { parent.postMessage({ pluginMessage: msg }, '*'); }
+
+    var dupBtn    = document.getElementById('dupBtn');
+    var rescanBtn = document.getElementById('rescanBtn');
+    var nodeList  = document.getElementById('nodeList');
+    var pills     = document.getElementById('pills');
+    var feedback  = document.getElementById('feedback');
+
+    function esc(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    function renderNodes(nodes) {
+      if (!nodes || !nodes.length) {
+        nodeList.innerHTML = '<div class="empty-state"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>No stroked nodes in selection</div>';
+        dupBtn.disabled = true;
+        pills.style.display = 'none';
+        return;
+      }
+      var inside = 0, outside = 0, center = 0, html = '';
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        if (n.align === 'INSIDE')  inside++;
+        if (n.align === 'OUTSIDE') outside++;
+        if (n.align === 'CENTER')  center++;
+        var bc = n.align === 'INSIDE' ? 'badge-inside' : n.align === 'OUTSIDE' ? 'badge-outside' : 'badge-center';
+        var dc = n.type === 'VECTOR'    ? '#7C6FCD'
+               : n.type === 'RECTANGLE' ? '#52B8A8'
+               : n.type === 'ELLIPSE'   ? '#D4865A'
+               : '#6B74B0';
+        html += '<div class="node-item' + (n.align === 'CENTER' ? ' is-center' : '') + '">'
+          + '<div class="node-info"><div class="dot" style="background:' + dc + '"></div>'
+          + '<span class="node-name" title="' + esc(n.name) + '">' + esc(n.name) + '</span></div>'
+          + '<div class="node-meta"><span class="weight">' + n.weight + 'px</span>'
+          + '<span class="badge ' + bc + '">' + n.align + '</span></div></div>';
+      }
+      nodeList.innerHTML = html;
+      document.getElementById('cntInside').textContent  = inside;
+      document.getElementById('cntOutside').textContent = outside;
+      document.getElementById('cntCenter').textContent  = center;
+      pills.style.display = 'flex';
+      dupBtn.disabled = (inside + outside) === 0;
+    }
+
+    function showFeedback(msg, type) { feedback.textContent = msg; feedback.className = type; }
+
+    dupBtn.addEventListener('click', function() {
+      dupBtn.disabled = true;
+      dupBtn.textContent = 'Duplicating…';
+      send({ type: 'duplicate' });
+    });
+
+    rescanBtn.addEventListener('click', function() {
+      feedback.className = '';
+      send({ type: 'scan' });
+    });
+
+    window.onmessage = function(event) {
+      var msg = event.data.pluginMessage;
+      if (!msg) return;
+
+      if (msg.type === 'summary') {
+        renderNodes(msg.nodes);
+        resetDupBtn();
+      }
+
+      if (msg.type === 'done') {
+        var text = '✓ ' + msg.converted + ' stroke(s) converted. Copies placed next to originals.';
+        if (msg.skipped && msg.skipped.length) {
+          text += '\nSkipped: ' + msg.skipped.join(', ');
+          showFeedback(text, 'warning');
+        } else {
+          showFeedback(text, 'success');
+        }
+        resetDupBtn();
+        send({ type: 'scan' });
+      }
+
+      if (msg.type === 'error') {
+        showFeedback('Error: ' + msg.message, 'error');
+        resetDupBtn();
+      }
+    };
+
+    function resetDupBtn() {
+      dupBtn.disabled = false;
+      dupBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Duplicate &amp; Convert Strokes';
+    }
+
+    send({ type: 'scan' });
+  </script>
+</body>
+</html>
