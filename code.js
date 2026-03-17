@@ -128,6 +128,7 @@ function normalizeStroke(node) {
   var align = node.strokeAlign;
   var delta = align === 'INSIDE' ? -(w / 2) : (w / 2);
   adjustBBox(node, delta);
+  adjustCornerRadius(node, delta);
   node.strokeAlign = 'CENTER';
 }
 
@@ -137,4 +138,22 @@ function adjustBBox(node, delta) {
   node.x -= delta;
   node.y -= delta;
   node.resize(newW, newH);
+}
+
+// Corner radius must shift by the same delta as the bbox so the visual
+// shape of the corners is preserved after stroke alignment changes.
+// Applies to RECTANGLE, FRAME, COMPONENT, and any node with cornerRadius.
+function adjustCornerRadius(node, delta) {
+  if (!('cornerRadius' in node)) return;
+  if (node.cornerRadius === figma.mixed) {
+    // Per-corner radii
+    if ('topLeftRadius' in node) {
+      node.topLeftRadius     = Math.max(0, node.topLeftRadius     + delta);
+      node.topRightRadius    = Math.max(0, node.topRightRadius    + delta);
+      node.bottomLeftRadius  = Math.max(0, node.bottomLeftRadius  + delta);
+      node.bottomRightRadius = Math.max(0, node.bottomRightRadius + delta);
+    }
+  } else {
+    node.cornerRadius = Math.max(0, node.cornerRadius + delta);
+  }
 }

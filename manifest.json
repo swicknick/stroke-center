@@ -1,8 +1,9 @@
 {
   "name": "Stroke Center",
-  "id": "stroke-center-ae",
+  "id": "1615801305380217875",
   "api": "1.0.0",
   "main": "code.js",
   "ui": "ui.html",
-  "editorType": ["figma"]
+  "editorType": ["figma"],
+  "networkAccess": { "allowedDomains": "none" }
 }
