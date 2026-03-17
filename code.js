@@ -2,13 +2,14 @@
 // Duplicates selected shapes, normalises all INSIDE/OUTSIDE strokes to CENTER
 // on the copies (originals untouched), places copies next to the originals.
 
-figma.showUI(__html__, { width: 320, height: 360, title: 'Stroke Center' });
+figma.showUI(__html__, { width: 320, height: 280, title: 'Stroke Center' });
 
 figma.on('selectionchange', sendSummary);
 
 figma.ui.onmessage = async (msg) => {
   if (msg.type === 'scan')      sendSummary();
   if (msg.type === 'duplicate') await handleDuplicate();
+  if (msg.type === 'resize')    figma.ui.resize(320, Math.ceil(msg.height));
   if (msg.type === 'close')     figma.closePlugin();
 };
 

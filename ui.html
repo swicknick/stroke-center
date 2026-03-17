@@ -16,10 +16,9 @@
       --text-dim:  #6B74B0;
       --btn:       #343434;
       --btn-hover: #3E3E3E;
-      /* antagonists */
-      --warm:      #D4865A;   /* inside — amber-orange */
+      --warm:      #D4865A;
       --warm-bg:   #2E1E14;
-      --cool:      #52B8A8;   /* outside — teal */
+      --cool:      #52B8A8;
       --cool-bg:   #12272A;
     }
 
@@ -30,9 +29,9 @@
       background: var(--bg);
       padding: 16px;
       line-height: 1.4;
+      overflow: hidden;
     }
 
-    /* ── Header ── */
     .header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
     .header-icon {
       width: 30px; height: 30px;
@@ -41,11 +40,10 @@
       border-radius: 8px;
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .header-icon svg { width: 14px; height: 14px; }
+    .header-icon svg { width: 18px; height: 18px; }
     .header h1 { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
     .header p  { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
 
-    /* ── Section label ── */
     .section-label {
       font-size: 9px; font-weight: 700;
       color: var(--text-dim);
@@ -53,17 +51,13 @@
       margin-bottom: 7px;
     }
 
-    /* ── Node list ── */
     .node-list {
       border: 1px solid var(--border);
       border-radius: 8px;
       background: var(--surface);
       overflow: hidden;
-      max-height: 180px; overflow-y: auto;
       margin-bottom: 10px;
     }
-    .node-list::-webkit-scrollbar { width: 3px; }
-    .node-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
     .node-item {
       display: flex; align-items: center; justify-content: space-between;
@@ -94,12 +88,11 @@
     .badge-center  { background: transparent;    color: var(--text-dim); border-color: var(--border); }
 
     .empty-state {
-      padding: 26px 12px; text-align: center;
+      padding: 20px 12px; text-align: center;
       color: var(--text-dim); font-size: 11px;
     }
     .empty-state svg { display: block; margin: 0 auto 7px; opacity: 0.4; }
 
-    /* ── Pills ── */
     .pills { display: flex; gap: 6px; margin-bottom: 12px; }
     .pill {
       flex: 1; background: var(--surface);
@@ -112,7 +105,6 @@
     .pill-o .pill-num  { color: var(--cool); }
     .pill-ok .pill-num { color: var(--border); }
 
-    /* ── Buttons ── */
     .btn {
       display: flex; align-items: center; justify-content: center; gap: 6px;
       width: 100%; padding: 10px 14px;
@@ -125,32 +117,17 @@
     }
     .btn svg { width: 12px; height: 12px; flex-shrink: 0; }
 
-    .btn-primary {
-      background: var(--btn);
-      color: var(--text);
-      border-color: var(--outline);
-    }
-    .btn-primary:hover:not(:disabled) {
-      background: var(--btn-hover);
-      border-color: var(--text-dim);
-    }
+    .btn-primary { background: var(--btn); color: var(--text); border-color: var(--outline); }
+    .btn-primary:hover:not(:disabled) { background: var(--btn-hover); border-color: var(--text-dim); }
     .btn-primary:active:not(:disabled) { transform: scale(0.99); }
-    .btn-primary:disabled {
-      background: var(--surface);
-      color: var(--border);
-      border-color: var(--border);
-      cursor: not-allowed;
-    }
+    .btn-primary:disabled { background: var(--surface); color: var(--border); border-color: var(--border); cursor: not-allowed; }
 
     .btn-secondary {
-      background: transparent;
-      color: var(--text-dim);
-      border-color: var(--border);
-      font-size: 11px; padding: 7px 12px;
+      background: transparent; color: var(--text-dim);
+      border-color: var(--border); font-size: 11px; padding: 7px 12px;
     }
     .btn-secondary:hover { background: var(--surface); border-color: var(--outline); color: var(--text); }
 
-    /* ── Feedback ── */
     #feedback {
       display: none; padding: 9px 11px; border-radius: 7px;
       font-size: 11px; line-height: 1.5; margin-top: 8px; white-space: pre-line;
@@ -159,17 +136,29 @@
     #feedback.error   { display: block; background: #2A0F0F; color: #C46060; border: 1px solid #4A1E1E; }
     #feedback.warning { display: block; background: #2A1E08; color: var(--warm); border: 1px solid #3A2A10; }
 
-    /* ── Divider ── */
     .divider { height: 1px; background: var(--border); margin: 14px 0; }
+
+    .logo-footer {
+      display: flex; justify-content: center; align-items: center;
+      margin-top: 16px; opacity: 0.2;
+    }
   </style>
 </head>
 <body>
 
   <div class="header">
     <div class="header-icon">
-      <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="1" y="1" width="12" height="12" rx="1.5" stroke="#6B74B0" stroke-width="1.5"/>
-        <rect x="4" y="4" width="6" height="6" rx="0.75" stroke="#A3A8C9" stroke-width="1.2"/>
+      <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_474_5684)">
+          <path d="M64 -56.5C67.0376 -56.5 69.5 -54.0376 69.5 -51V43C69.5 43.5523 69.9477 44 70.5 44H74C79.5228 44 84 48.4772 84 54V74C84 79.5228 79.5228 84 74 84H54C48.4772 84 44 79.5228 44 74V70.5C44 69.9477 43.5523 69.5 43 69.5H-30C-33.0376 69.5 -35.5 67.0376 -35.5 64C-35.5 60.9624 -33.0376 58.5 -30 58.5H43C43.5523 58.5 44 58.0523 44 57.5V54C44 48.4772 48.4772 44 54 44H57.5C58.0523 44 58.5 43.5523 58.5 43V-51C58.5 -54.0376 60.9624 -56.5 64 -56.5Z" fill="#595D74"/>
+          <path d="M26.4492 80.3271C27.8019 80.3271 28.8984 81.4237 28.8984 82.7764V89.7144C28.8984 94.8988 33.1012 99.1016 38.2856 99.1016H46.0303C47.3829 99.1016 48.4795 100.198 48.4795 101.551C48.4795 102.903 47.3829 104 46.0303 104H35.8364C29.2993 104 24 98.7007 24 92.1636V82.7764C24 81.4237 25.0966 80.3271 26.4492 80.3271ZM104 92.5659C104 98.8808 98.8808 104 92.5659 104H83.5811C82.2284 104 81.1318 102.903 81.1318 101.551C81.1318 100.198 82.2284 99.1016 83.5811 99.1016H90.1167C95.0789 99.1016 99.1016 95.0789 99.1016 90.1167V82.7764C99.1016 81.4237 100.198 80.3271 101.551 80.3271C102.903 80.3271 104 81.4237 104 82.7764V92.5659ZM104 45.2246C104 46.5773 102.903 47.6738 101.551 47.6738C100.198 47.6738 99.1016 46.5773 99.1016 45.2246V37.8833C99.1016 32.9211 95.0789 28.8984 90.1167 28.8984H83.5811C82.2284 28.8984 81.1318 27.8019 81.1318 26.4492C81.1318 25.0966 82.2284 24 83.5811 24H92.5659C98.8808 24 104 29.1192 104 35.4341V45.2246ZM48.4795 26.4492C48.4795 27.8019 47.3829 28.8984 46.0303 28.8984H38.2861C33.1015 28.8984 28.8984 33.1015 28.8984 38.2861V45.2246C28.8984 46.5773 27.8019 47.6738 26.4492 47.6738C25.0966 47.6738 24 46.5773 24 45.2246V35.8369C24 29.2996 29.2996 24 35.8369 24H46.0303C47.3829 24 48.4795 25.0966 48.4795 26.4492Z" fill="#A3A8C9"/>
+          <path d="M66.4453 47.6738C66.4453 55.3384 72.6587 61.5518 80.3232 61.5518H91.7563C93.1087 61.5518 94.2051 62.6481 94.2051 64.0005C94.2051 65.3529 93.1087 66.4492 91.7563 66.4492H80.3228C72.6585 66.4492 66.4453 72.6624 66.4453 80.3267V91.7549C66.4453 93.1075 65.3488 94.2041 63.9961 94.2041C62.6434 94.2041 61.5469 93.1075 61.5469 91.7549V80.3242C61.5469 72.6613 55.3348 66.4492 47.6719 66.4492H36.2456C34.8932 66.4492 33.7969 65.3529 33.7969 64.0005C33.7969 62.6481 34.8932 61.5518 36.2456 61.5518H47.6719C55.3348 61.5518 61.5469 55.3397 61.5469 47.6768V36.2451C61.5469 34.8925 62.6434 33.7959 63.9961 33.7959C65.3488 33.7959 66.4453 34.8925 66.4453 36.2451V47.6738Z" fill="#A3A8C9"/>
+        </g>
+        <defs>
+          <clipPath id="clip0_474_5684">
+            <rect width="128" height="128" fill="white"/>
+          </clipPath>
+        </defs>
       </svg>
     </div>
     <div>
@@ -211,6 +200,14 @@
 
   <div id="feedback"></div>
 
+  <div class="logo-footer">
+    <svg height="12" viewBox="0 0 239 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M84.4258 8.26953C89.9522 8.26953 94.2734 12.5489 94.2734 17.9922C94.2734 18.6985 94.232 19.4879 94.1074 20.2773H79.4395C79.9796 23.0612 81.891 24.5155 84.6748 24.5156C86.503 24.5156 88.4146 23.6849 89.1211 22.4385L93.6924 25.2227C92.1965 27.9234 88.7889 29.5019 84.5508 29.502C78.5674 29.502 73.8303 24.8486 73.8301 18.7822C73.8301 12.8403 78.4839 8.2696 84.4258 8.26953ZM102.99 11.0947C103.987 9.43264 106.439 8.26856 109.016 8.26855C114.334 8.26855 118.531 12.964 118.531 18.8643C118.531 24.7647 114.334 29.502 109.016 29.502C106.439 29.5019 103.988 28.3388 102.99 26.6768V29.0869H97.1318V0H102.99V11.0947ZM128.281 8.26953C131.148 8.26953 134.016 8.97531 136.052 10.5957L134.39 14.834C132.811 13.6291 130.234 12.7148 128.032 12.7148C126.536 12.7149 125.539 13.4218 125.539 14.3359C125.581 17.2857 136.634 15.6656 136.759 22.8535C136.759 26.7594 133.434 29.5019 128.697 29.502C125.207 29.502 122.007 28.671 119.556 26.9258L121.301 22.8535C123.212 24.2662 125.705 25.0146 128.198 25.0146C130.027 25.0146 131.19 24.3079 131.19 23.2275C131.148 20.2362 120.179 22.5627 120.096 15.042C120.054 11.2193 123.461 8.26972 128.281 8.26953ZM162.957 8.26953C165.533 8.26958 167.985 9.43267 168.982 11.0947V8.68457H174.841V29.0869H168.982V26.6768C167.985 28.3388 165.533 29.5019 162.957 29.502C157.638 29.502 153.442 24.7655 153.441 18.8652C153.441 12.9648 157.638 8.26953 162.957 8.26953ZM188.421 8.26953C192.41 8.26965 195.775 10.2637 197.396 13.2969L192.451 16.1221C191.703 14.7511 190.207 13.879 188.421 13.8789C185.512 13.8789 183.435 16.0392 183.435 18.9062C183.435 21.7318 185.512 23.8926 188.421 23.8926C190.415 23.8925 192.036 22.9368 192.825 21.3164L198.02 23.6436C196.482 27.1754 192.784 29.5018 188.421 29.502C182.313 29.502 177.7 24.9729 177.7 18.9062C177.7 12.8397 182.313 8.26953 188.421 8.26953ZM229.742 8.26953C232.609 8.26955 235.477 8.97519 237.513 10.5957L235.851 14.834C234.272 13.629 231.695 12.715 229.493 12.7148C227.997 12.7148 227 13.4218 227 14.3359C227.042 17.2857 238.094 15.6656 238.219 22.8535C238.219 26.7594 234.894 29.502 230.157 29.502C226.667 29.5019 223.468 28.6708 221.017 26.9258L222.762 22.8535C224.673 24.2662 227.166 25.0146 229.659 25.0146C231.487 25.0146 232.65 24.3079 232.65 23.2275C232.608 20.2362 221.64 22.5627 221.557 15.042C221.515 11.2192 224.922 8.26953 229.742 8.26953ZM147.054 8.68457H152.082V14.2529H147.054V20.8184C147.054 22.7295 148.508 23.9345 150.212 23.9346C150.794 23.9346 151.583 23.8097 152.04 23.6436L152.331 28.8379C151.583 29.2117 150.42 29.4189 149.34 29.4189C144.561 29.4189 141.195 26.3855 141.195 21.1084V14.2529H137.414V8.68457H141.195V3.32422H147.054V8.68457ZM51.2793 19.8623L55.3516 8.68457H59.9219L64.0352 19.8623L67.4014 8.68457H73.7178L66.3623 29.0869H61.75L57.6367 17.9092L53.4814 29.0869H48.9521L41.5977 8.68457H47.8721L51.2793 19.8623ZM205.82 17.1191L212.884 8.68457H220.072L211.596 18.5322L220.737 29.0869H213.217L205.82 19.9453V29.0869H199.962V0H205.82V17.1191ZM107.725 13.7959C105.689 13.7959 103.86 14.9173 102.987 16.4131V21.3994C103.86 22.8537 105.689 23.9346 107.725 23.9346C110.591 23.9344 112.794 21.7737 112.794 18.8652C112.794 15.9567 110.592 13.796 107.725 13.7959ZM164.249 13.7959C161.382 13.796 159.18 15.9566 159.18 18.8652C159.18 21.7737 161.382 23.9345 164.249 23.9346C166.285 23.9346 168.114 22.8537 168.986 21.3994V16.4131C168.114 14.9173 166.285 13.7959 164.249 13.7959ZM84.1357 13.0059C81.6842 13.0059 80.0636 14.3358 79.5234 16.5381H88.415C88.1657 14.5021 86.2963 13.006 84.1357 13.0059Z" fill="#A3A8C9"/>
+      <path d="M28.7979 32H17.5977V25.5996H22.3984V6.40039H17.5977V0H28.7979V32Z" fill="#6B74B0"/>
+      <path d="M-0.000976562 0V32H11.1992V25.5996H6.39941V6.40039H11.1992V0H-0.000976562Z" fill="#6B74B0"/>
+    </svg>
+  </div>
+
   <script>
     function send(msg) { parent.postMessage({ pluginMessage: msg }, '*'); }
 
@@ -220,15 +217,21 @@
     var pills     = document.getElementById('pills');
     var feedback  = document.getElementById('feedback');
 
+    function fitWindow() {
+      var h = document.body.scrollHeight;
+      send({ type: 'resize', height: h });
+    }
+
     function esc(s) {
       return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
     function renderNodes(nodes) {
       if (!nodes || !nodes.length) {
-        nodeList.innerHTML = '<div class="empty-state"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>No stroked nodes in selection</div>';
+        nodeList.innerHTML = '<div class="empty-state"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>Select layers to scan</div>';
         dupBtn.disabled = true;
         pills.style.display = 'none';
+        fitWindow();
         return;
       }
       var inside = 0, outside = 0, center = 0, html = '';
@@ -254,9 +257,14 @@
       document.getElementById('cntCenter').textContent  = center;
       pills.style.display = 'flex';
       dupBtn.disabled = (inside + outside) === 0;
+      fitWindow();
     }
 
-    function showFeedback(msg, type) { feedback.textContent = msg; feedback.className = type; }
+    function showFeedback(msg, type) {
+      feedback.textContent = msg;
+      feedback.className = type;
+      fitWindow();
+    }
 
     dupBtn.addEventListener('click', function() {
       dupBtn.disabled = true;
@@ -266,6 +274,7 @@
 
     rescanBtn.addEventListener('click', function() {
       feedback.className = '';
+      fitWindow();
       send({ type: 'scan' });
     });
 
